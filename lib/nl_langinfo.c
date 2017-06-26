@@ -167,6 +167,7 @@ nl_langinfo (nl_item item)
 # else
       return "ISO-8859-1";
 # endif
+#ifndef ANDROID
     /* nl_langinfo items of the LC_NUMERIC category */
     case RADIXCHAR:
       return localeconv () ->decimal_point;
@@ -174,6 +175,7 @@ nl_langinfo (nl_item item)
       return localeconv () ->thousands_sep;
     case GROUPING:
       return localeconv () ->grouping;
+#endif
     /* nl_langinfo items of the LC_TIME category.
        TODO: Really use the locale.  */
     case D_T_FMT:
@@ -278,6 +280,7 @@ nl_langinfo (nl_item item)
     case ALT_DIGITS:
       return "\0\0\0\0\0\0\0\0\0\0";
     /* nl_langinfo items of the LC_MONETARY category.  */
+#ifndef ANDROID
     case CRNCYSTR:
       return localeconv () ->currency_symbol;
     case INT_CURR_SYMBOL:
@@ -308,6 +311,7 @@ nl_langinfo (nl_item item)
       return & localeconv () ->p_sign_posn;
     case N_SIGN_POSN:
       return & localeconv () ->n_sign_posn;
+#endif
     /* nl_langinfo items of the LC_MESSAGES category
        TODO: Really use the locale. */
     case YESEXPR:
